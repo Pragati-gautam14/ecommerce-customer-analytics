@@ -1,0 +1,46 @@
+name: Build analytics pipeline
+
+# Re-runs the SQL + Python pipeline and refreshes tables, charts, notebook and dashboard
+on:
+  push:
+    branches: [main]
+    paths: ["sql/**", "src/**", "bootstrap.b64", ".github/workflows/build.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unpack project sources (first run only)
+        run: |
+          if [ -f bootstrap.b64 ]; then
+            base64 -d bootstrap.b64 | tar xJ
+            git rm -q bootstrap.b64
+          fi
+
+      - uses: actions/setup-python@v5
+        if: hashFiles('src/run_pipeline.py') != ''
+        with:
+          python-version: "3.12"
+
+      - name: Run pipeline
+        if: hashFiles('src/run_pipeline.py') != ''
+        run: |
+          pip install -q -r requirements.txt nbconvert nbformat ipykernel
+          if [ -f src/download_data.py ]; then python src/download_data.py; fi
+          bash src/pipeline.sh
+          python src/make_notebook.py src/notebook_cells.py notebooks/analysis.ipynb notebooks
+
+      - name: Commit results
+        if: hashFiles('src/run_pipeline.py') != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Build pipeline outputs: tables, charts, notebook and dashboard"
+          git push
