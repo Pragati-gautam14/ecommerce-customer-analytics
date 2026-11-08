@@ -16,8 +16,8 @@ All data modelling is done in **SQL** (DuckDB, window functions, CTEs, self-join
 
 | # | Insight | Recommended action |
 |---|---------|-------------------|
-| 1 | **Champions = 22% of customers but 67% of revenue** (avg spend £5.8K) | Loyalty tier / early access to protect this group |
-| 2 | **292 high-value customers are "At Risk"** — avg 131 days since last order, £459K historic revenue | Targeted win-back campaign (list exported from SQL) |
+| 1 | **Champions = 22% of customers but 67% of revenue** (avg spend £5.9K) | Loyalty tier / early access to protect this group |
+| 2 | **286 high-value customers are "At Risk"** — avg 136 days since last order, £438K historic revenue | Targeted win-back campaign (list exported from SQL) |
 | 3 | Only **~20% of new customers return in month 1**, yet repeat buyers (65% of customers) drive **93% of revenue** | Welcome journey + second-order incentive |
 | 4 | **Sep–Nov delivered 38% of annual revenue**; peak trading Thursday 10:00–13:00, no Saturday trading | Ramp inventory & staffing from August; time campaigns mid-week |
 | 5 | **22% of products (806 SKUs) generate 80% of revenue**; cancellations cost **5.4% of gross sales** (£474K) | Prioritise top SKUs in stock planning; investigate high-cancel items |
