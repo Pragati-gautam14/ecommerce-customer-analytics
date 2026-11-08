@@ -1,0 +1,8 @@
+# raw & generated data (re-create with: python src/download_data.py && python src/run_pipeline.py)
+data/raw/*.csv
+data/*.duckdb
+data/*.duckdb.wal
+powerbi/fact_sales.csv
+__pycache__/
+.ipynb_checkpoints/
+.venv/

@@ -1,0 +1,10 @@
+check_name,rows
+Raw rows,541909
+Missing CustomerID,135080
+Cancellation lines (C-invoices),9288
+Non-product codes (postage/fees),2950
+Zero / negative price,2517
+"Negative qty, not cancellation",1336
+Exact duplicate lines,5270
+Purchases reversed by a cancellation,4032
+Clean rows kept,387230
