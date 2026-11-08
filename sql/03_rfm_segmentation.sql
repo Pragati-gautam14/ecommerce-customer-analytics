@@ -20,9 +20,9 @@ base AS (
 ),
 scored AS (
     SELECT *,
-        6 - NTILE(5) OVER (ORDER BY recency_days)            AS r_score,   -- recent = 5
-        NTILE(5) OVER (ORDER BY frequency)                    AS f_score,
-        NTILE(5) OVER (ORDER BY monetary)                     AS m_score
+        6 - NTILE(5) OVER (ORDER BY recency_days, customer_id) AS r_score,   -- recent = 5 (customer_id breaks ties)
+        NTILE(5) OVER (ORDER BY frequency, customer_id)      AS f_score,
+        NTILE(5) OVER (ORDER BY monetary, customer_id)       AS m_score
     FROM base
 )
 SELECT *,
